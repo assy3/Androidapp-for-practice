@@ -69,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         ll.addView(tv);
+        ll.addView(et);
         ll.addView(bt);
         ll.addView(bt2);
-        ll.addView(et);
         ll.addView(rg);  //リニアレイアウトへラジオグループの登録
         //ll.addView(lv1);  //リニアレイアウトにリストビューを設定
         ll.addView(sp);  //リニアレイアウトにスピナーを設定
         ll.addView(sv);  //リニアレイアウトにスピナーを設定
-        sv.addView(lv2);  //スクロールビューにリストビューを設定
+        //sv.addView(lv2);  //スクロールビューにリストビューを設定
 
         //匿名クラスによる記述法
         bt2.setOnClickListener(
