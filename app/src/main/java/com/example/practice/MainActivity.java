@@ -41,24 +41,24 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i=0; i<rb.length; i++)  //ラジオボタンの各要素の生成
             rb[i] = new RadioButton(this);
-        rb[0].setText("近江町市場");  //ラジオボタンのテキストの設定
-        rb[1].setText("東茶屋街");
-        rb[2].setText("武家屋敷");
+        rb[0].setText("red");  //ラジオボタンのテキストの設定
+        rb[1].setText("blue");
+        rb[2].setText("yellow");
         rg = new RadioGroup(this);  //ラジオグループの生成
         for(int i=0; i<rb.length; i++)  //ラジオグループにラジオボタンを登録
             rg.addView(rb[i]);
         rb[0].setChecked(true);
 
 
-        lv1 = new ListView(this);  //リストビュー1の生成
+        //lv1 = new ListView(this);  //リストビュー1の生成
         lv2 = new ListView(this);  //リストビュー2の生成
         sp = new Spinner(this);  //スピナーの生成
 
-        String[] str ={"兼六園","21世紀美術館","近江町市場",
-                "東茶屋街","武家屋敷","忍者寺"};  //リストビュー、スピナーに格納するテキストデータ
+        Integer[] pix ={4,8,12,
+                16,20};  //リストビュー、スピナーに格納するテキストデータ
 
-        ArrayAdapter<String> ad = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, str);  //テキストをリストビュー、スピナーに渡すためのアレイアダプター
-        lv1.setAdapter(ad);  //リストビュー1にアレイアダプターを登録
+        ArrayAdapter<Integer> ad = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, pix);  //テキストをリストビュー、スピナーに渡すためのアレイアダプター
+        //lv1.setAdapter(ad);  //リストビュー1にアレイアダプターを登録
         lv2.setAdapter(ad);  //リストビュー2にアレイアダプターを登録
 
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);  //アレイアダプターにドロップダウンリストを設定
@@ -72,10 +72,9 @@ public class MainActivity extends AppCompatActivity {
         ll.addView(bt2);
         ll.addView(et);
         ll.addView(rg);  //リニアレイアウトへラジオグループの登録
-        ll.addView(lv1);  //リニアレイアウトにリストビューを設定
+        //ll.addView(lv1);  //リニアレイアウトにリストビューを設定
         ll.addView(sp);  //リニアレイアウトにスピナーを設定
         ll.addView(sv);  //リニアレイアウトにスピナーを設定
-
         sv.addView(lv2);  //スクロールビューにリストビューを設定
 
         //匿名クラスによる記述法
@@ -93,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
         for(int i=0; i<rb.length; i++)
             rb[i].setOnClickListener(new ExSampleClickListener());  //ラジオボタンクリック時のリスナー登録
 
-        lv1.setOnItemClickListener(new ExSampleItemClickListener());  //リストビュー1のアイテムクリック時のリスナー登録
-        lv2.setOnItemClickListener(new ExSampleItemClickListener());  //リストビュー2のアイテムクリック時のリスナー登録
+        //lv1.setOnItemClickListener(new ExSampleItemClickListener());  //リストビュー1のアイテムクリック時のリスナー登録
+        //lv2.setOnItemClickListener(new ExSampleItemClickListener());  //リストビュー2のアイテムクリック時のリスナー登録
         sp.setOnItemSelectedListener(new ExSampleItemSelectedListener());  //スピナーのアイテム選択時のリスナー登録
     }
 
@@ -104,18 +103,22 @@ public class MainActivity extends AppCompatActivity {
         }  //ボタンがクリックされたときの具体的な処理
     }
 
-
+    /*
     class ExSampleItemClickListener implements AdapterView.OnItemClickListener {  //リストビューのアイテムクリック時のイベント処理
         public void onItemClick(AdapterView<?>v, View iv, int pos, long id){
             TextView tmp = (TextView) iv;
             tv.setText(tmp.getText() + "を表示します。");
         }
-    }
+    }*/
 
     class ExSampleItemSelectedListener implements AdapterView.OnItemSelectedListener {  //スピナーのアイテムクリック時のイベント処理
         public void onItemSelected(AdapterView<?>v, View iv, int pos, long id){
             TextView tmp = (TextView) iv;
+            String str = tmp.getText().toString();
+            int i = Integer.parseInt(str);
+
             tv.setText(tmp.getText() + "を表示します。");
+            tv.setTextSize(i*2);  //テキストサイズの設定
         }
         public void onNothingSelected(AdapterView<?> arg0){}
     }
