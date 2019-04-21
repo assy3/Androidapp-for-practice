@@ -5,6 +5,7 @@
 package com.example.practice;
 
 import android.app.*;
+import android.graphics.Color;
 import android.os.*;
 import android.support.v7.app.AppCompatActivity;
 import android.view.*;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         bt.setOnClickListener(new ExSampleClickListener());  //ボタンがクリックされるときのリスナー登録
         //bt.setOnTouchListener(new ExSampleTouchListener());  //ボタンがタッチされるときのリスナー登録
         for(int i=0; i<rb.length; i++)
-            rb[i].setOnClickListener(new ExSampleClickListener());  //ラジオボタンクリック時のリスナー登録
+            rb[i].setOnClickListener(new ExSampleClickListener2());  //ラジオボタンクリック時のリスナー登録
 
         //lv1.setOnItemClickListener(new ExSampleItemClickListener());  //リストビュー1のアイテムクリック時のリスナー登録
         //lv2.setOnItemClickListener(new ExSampleItemClickListener());  //リストビュー2のアイテムクリック時のリスナー登録
@@ -102,6 +103,26 @@ public class MainActivity extends AppCompatActivity {
             tv.setText("兼六園がおすすめです！");
         }  //ボタンがクリックされたときの具体的な処理
     }
+
+    class ExSampleClickListener2 implements OnClickListener{  //ボタンがクリックされたときのイベント処理
+        public void onClick(View v){
+            TextView tmp = (TextView) v;
+            String str = tmp.getText().toString();
+            if (str == "red"){
+                tv.setTextColor(Color.RED);  //テキストの色の設定
+            }
+            else if (str == "blue"){
+                tv.setTextColor(Color.BLUE);  //テキストの色の設定
+            }
+            else if (str == "yellow"){
+                tv.setTextColor(Color.YELLOW);  //テキストの色の設定
+            }
+
+        }  //ボタンがクリックされたときの具体的な処理
+    }
+
+
+
 
     /*
     class ExSampleItemClickListener implements AdapterView.OnItemClickListener {  //リストビューのアイテムクリック時のイベント処理
