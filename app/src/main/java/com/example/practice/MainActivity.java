@@ -1,91 +1,74 @@
-//ExSample2_06.java チェックボックス、ラジオボタン、トグルボタンに関するサンプル
+//package com.example.practice;
+// MainActivity
 
+//ExSample2_03.java 基本的なイベント処理のサンプル
 package com.example.practice;
+
 import android.app.*;
 import android.os.*;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.*;
-import android.widget.CompoundButton.*;
 import android.view.*;
 import android.view.View.*;
+import android.widget.*;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
+
     TextView tv;
-    CheckBox cb1, cb2;
-    RadioButton rb[] = new RadioButton[4];
-    RadioGroup rg;
-    ToggleButton tb;
+    EditText et;
+    Button bt;
+    Button bt2;
 
-    public void onCreate(Bundle savedInstanceState){
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LinearLayout ll =new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         setContentView(ll);
 
         tv = new TextView(this);
-        tv.setText("金沢へようこそ!");
+        tv.setText("こんにちは！");
 
-        cb1 = new CheckBox(this);  //チェックボックスの生成
-        cb2 = new CheckBox(this);
-        cb1.setText("兼六園");  //チェックボックスのテキストの設定
-        cb2.setText("21世紀美術館");
+        bt = new Button(this);
+        bt.setText("検索");
 
-        for(int i=0; i<rb.length; i++)  //ラジオボタンの各要素の生成
-            rb[i] = new RadioButton(this);
+        bt2 = new Button(this);
+        bt2.setText("押してみなはれ");
 
-        rb[0].setText("近江町市場");  //ラジオボタンのテキストの設定
-        rb[1].setText("東茶屋街");
-        rb[2].setText("武家屋敷");
-        rb[3].setText("忍者寺");
-
-        rg = new RadioGroup(this);  //ラジオグループの生成
-        for(int i=0; i<rb.length; i++)  //ラジオグループにラジオボタンを登録
-            rg.addView(rb[i]);
-
-        rb[0].setChecked(true);
-
-        tb = new ToggleButton(this);  //トグルボタンの生成
-        tb.setTextOn("観光地を非表示にします");  //トグルボタンオン時のボタン表示
-        tb.setTextOff("観光地を表示します");  //トグルボタンオフ時のボタン表示
+        et = new EditText(this);  //エディットテキストの生成
 
         ll.addView(tv);
-        ll.addView(cb1); //リニアレイアウトへチェックボックスの登録
-        ll.addView(cb2);
-        ll.addView(rg);  //リニアレイアウトへラジオグループの登録
-        ll.addView(tb);  //リニアレイアウトへのトグルボタンの登録
+        ll.addView(bt);
+        ll.addView(bt2);
+        ll.addView(et);
 
-        cb1.setOnCheckedChangeListener(new ExSampleCheckedChangeListener());  //チェックボックス選択時のリスナー登録
-        cb2.setOnCheckedChangeListener(new ExSampleCheckedChangeListener());
+        //匿名クラスによる記述法
+        bt2.setOnClickListener(
+                new OnClickListener() {
+                    public void onClick(View v) {
+                        tv.setText(et.getText() + "を検索しました。");
+                        bt2.setEnabled(false);  //ボタンの無効化
+                    }
+                }
+        );
 
-        for(int i=0; i<rb.length; i++)
-            rb[i].setOnClickListener(new ExSampleClickListener());  //ラジオボタンクリック時のリスナー登録
-
-        tb.setOnCheckedChangeListener(new ExSampleCheckedChangeListener());  //トグルボタン押下時のリスナー登録
+        bt.setOnClickListener(new ExSampleClickListener());  //ボタンがクリックされるときのリスナー登録
+        //bt.setOnTouchListener(new ExSampleTouchListener());  //ボタンがタッチされるときのリスナー登録
     }
 
-    class ExSampleCheckedChangeListener implements CompoundButton.OnCheckedChangeListener {  //チェックボックス選択時、トグルボタン押下時のイベント処理
-        public void onCheckedChanged(CompoundButton cb, boolean isChecked){
-            if(cb == cb1 || cb == cb2) {  //チェックボックス選択時
-                if (isChecked == true)  //選択が行われたとき
-                    tv.setText(cb.getText() + "を選びました。");
-                else if (isChecked == false)  //選択が外されたとき
-                    tv.setText(cb.getText() + "をはずしました。");
-            } else if (cb == tb) {  //トグルボタン押下時
-                if (isChecked == true)  //ボタンがOnのとき
-                    tv.setText("観光地が表示されました。");
-                else if (isChecked == false)  //ボタンがOffのとき
-                    tv.setText("観光地が非表示になりました。");
-            }
-        }
-    }
-
-    class ExSampleClickListener implements View.OnClickListener {
+    class ExSampleClickListener implements OnClickListener{  //ボタンがクリックされたときのイベント処理
         public void onClick(View v){
-            RadioButton tmp = (RadioButton) v;
-            tv.setText(tmp.getText() + "を選びました。");
-        }
+            tv.setText("兼六園がおすすめです！");
+        }  //ボタンがクリックされたときの具体的な処理
     }
-}
 
+/*    class ExSampleTouchListener implements OnTouchListener{  //ボタンがタッチされたときのイベント処理
+    	public boolean onTouch(View v, MotionEvent e){
+    		if(e.getAction() == MotionEvent.ACTION_DOWN){  //ボタンが押されているときの具体的な処理
+    			tv.setText("検索中です...");
+    		}
+            else if(e.getAction() == MotionEvent.ACTION_UP){  //ボタンが上がった時の具体的な処理
+            	tv.setText("21世紀美術館がおすすめです!");
+            }
+    		return true;
+    	}
+    }*/
+}
