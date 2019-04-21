@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     EditText et;
     Button bt;
     Button bt2;
+    RadioButton rb[] = new RadioButton[3];
+    RadioGroup rg;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +37,22 @@ public class MainActivity extends AppCompatActivity {
 
         et = new EditText(this);  //エディットテキストの生成
 
+        for(int i=0; i<rb.length; i++)  //ラジオボタンの各要素の生成
+            rb[i] = new RadioButton(this);
+        rb[0].setText("近江町市場");  //ラジオボタンのテキストの設定
+        rb[1].setText("東茶屋街");
+        rb[2].setText("武家屋敷");
+        rg = new RadioGroup(this);  //ラジオグループの生成
+        for(int i=0; i<rb.length; i++)  //ラジオグループにラジオボタンを登録
+            rg.addView(rb[i]);
+        rb[0].setChecked(true);
+
+
         ll.addView(tv);
         ll.addView(bt);
         ll.addView(bt2);
         ll.addView(et);
+        ll.addView(rg);  //リニアレイアウトへラジオグループの登録
 
         //匿名クラスによる記述法
         bt2.setOnClickListener(
@@ -52,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
         bt.setOnClickListener(new ExSampleClickListener());  //ボタンがクリックされるときのリスナー登録
         //bt.setOnTouchListener(new ExSampleTouchListener());  //ボタンがタッチされるときのリスナー登録
+        for(int i=0; i<rb.length; i++)
+            rb[i].setOnClickListener(new ExSampleClickListener());  //ラジオボタンクリック時のリスナー登録
+
     }
 
     class ExSampleClickListener implements OnClickListener{  //ボタンがクリックされたときのイベント処理
