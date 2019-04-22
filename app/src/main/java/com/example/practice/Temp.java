@@ -1,18 +1,22 @@
-//package com.example.practice;
-// MainActivity
-
-//ExSample2_03.java 基本的なイベント処理のサンプル
 package com.example.practice;
 
-import android.app.*;
 import android.graphics.Color;
-import android.os.*;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.*;
-import android.view.View.*;
-import android.widget.*;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class Temp extends AppCompatActivity {
 
     TextView tv;
     EditText et;
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         //匿名クラスによる記述法
         bt2.setOnClickListener(
-                new OnClickListener() {
+                new View.OnClickListener() {
                     public void onClick(View v) {
                         tv.setText(et.getText() + "を検索しました。");
                         bt2.setEnabled(false);  //ボタンの無効化
@@ -98,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
         sp.setOnItemSelectedListener(new ExSampleItemSelectedListener());  //スピナーのアイテム選択時のリスナー登録
     }
 
-    class ExSampleClickListener implements OnClickListener{  //ボタンがクリックされたときのイベント処理
+    class ExSampleClickListener implements View.OnClickListener {  //ボタンがクリックされたときのイベント処理
         public void onClick(View v){
             tv.setText("兼六園がおすすめです！");
         }  //ボタンがクリックされたときの具体的な処理
     }
 
-    class ExSampleClickListener2 implements OnClickListener{  //ボタンがクリックされたときのイベント処理
+    class ExSampleClickListener2 implements View.OnClickListener {  //ボタンがクリックされたときのイベント処理
         public void onClick(View v){
             TextView tmp = (TextView) v;
             String str = tmp.getText().toString();
